@@ -148,9 +148,7 @@ class ErrorMessage:
         Returns:
             User-friendly error message
         """
-        message = (
-            f"The parameter '{param_name}' violates a constraint: " f"{constraint_description}"
-        )
+        message = f"The parameter '{param_name}' violates a constraint: {constraint_description}"
 
         if suggestion:
             message += f"\n\nSuggestion: {suggestion}"

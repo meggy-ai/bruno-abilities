@@ -367,9 +367,7 @@ class StateManager:
                     logger.debug("State file deleted", file=str(file_path))
 
         except Exception as e:
-            logger.error(
-                "Failed to delete state", state_key=state_key, error=str(e), exc_info=True
-            )
+            logger.error("Failed to delete state", state_key=state_key, error=str(e), exc_info=True)
 
     def get_stats(self) -> dict[str, Any]:
         """Get state manager statistics."""

@@ -5,58 +5,58 @@ PURPOSE & SCOPE
 Bruno-abilities is the action execution layer that transforms Bruno from a conversational AI into a functional personal assistant. It implements bruno-core's AbilityInterface to provide discrete, executable capabilities that handle specific user intents beyond conversation. Each ability is a self-contained plugin that can understand when it should activate, validate parameters, execute actions, and return structured results.
 
 ARCHITECTURAL PHILOSOPHY
-The package follows a microservice-inspired plugin architecture 
-where each ability is an independent, testable unit with clear boundaries. 
+The package follows a microservice-inspired plugin architecture
+where each ability is an independent, testable unit with clear boundaries.
 Abilities should leverage existing Python libraries rather than reimplementing functionality.
- The focus is on creating thin, well-designed wrappers that adapt external libraries 
- to Bruno's interface while adding assistant-specific value like natural language parameter 
+ The focus is on creating thin, well-designed wrappers that adapt external libraries
+ to Bruno's interface while adding assistant-specific value like natural language parameter
  extraction and conversational error handling.
 
 FOUNDATION LAYER
 1. Base Ability Framework
-Create an abstract base class that extends bruno-core's AbilityInterface and 
-provides common functionality all abilities need. This includes parameter 
-validation using Pydantic models, error handling with graceful degradation, 
+Create an abstract base class that extends bruno-core's AbilityInterface and
+provides common functionality all abilities need. This includes parameter
+validation using Pydantic models, error handling with graceful degradation,
 logging with structured context, state management for long-running operations,
  and cancellation support for interruptible tasks.
 
-The framework should provide decorators for common patterns like retry logic, 
+The framework should provide decorators for common patterns like retry logic,
 timeout handling, and rate limiting. Include utilities for parameter extraction
- from natural language using simple regex patterns or lightweight NLP, 
+ from natural language using simple regex patterns or lightweight NLP,
  making it easy for abilities to parse user intent without complex ML models.
 
 2. Ability Metadata System
  Design a rich metadata system that describes each ability's capabilities,
- parameters, examples, and requirements. This metadata feeds into the LLM's 
- function calling mechanism, allowing the assistant to understand which ability 
+ parameters, examples, and requirements. This metadata feeds into the LLM's
+ function calling mechanism, allowing the assistant to understand which ability
  to invoke and how to extract parameters from user input.
 
-Include version information for backward compatibility, 
-dependency declarations for external services or packages, 
+Include version information for backward compatibility,
+dependency declarations for external services or packages,
 permission requirements for actions that need user authorization
-, and capability flags indicating whether an ability supports 
+, and capability flags indicating whether an ability supports
 streaming, cancellation, or progress reporting.
 
 3. Parameter Validation Framework
-Implement a robust parameter validation system using Pydantic 
+Implement a robust parameter validation system using Pydantic
 that handles type coercion, range validation, format checking,
- and cross-parameter constraints. Support optional parameters 
- with sensible defaults, required parameters with clear error 
+ and cross-parameter constraints. Support optional parameters
+ with sensible defaults, required parameters with clear error
  messages, and complex nested parameters for advanced use cases.
 
-Provide validation error messages that are user-friendly and 
+Provide validation error messages that are user-friendly and
 actionable, suggesting corrections or alternatives when validation fails.
  Include support for parameter disambiguation when user input is ambiguous.
 
 4. Ability Registry and Discovery
-Build a dynamic registry system that discovers abilities through Python 
-entry points, validates they implement the required interface, handles 
-ability lifecycle including initialization and cleanup, and manages 
+Build a dynamic registry system that discovers abilities through Python
+entry points, validates they implement the required interface, handles
+ability lifecycle including initialization and cleanup, and manages
 ability dependencies and conflicts.
 
-Support ability aliases for natural language variations, ability groups 
-for organizing related capabilities, priority ordering when multiple 
-abilities could handle a request, and runtime enable/disable controls 
+Support ability aliases for natural language variations, ability groups
+for organizing related capabilities, priority ordering when multiple
+abilities could handle a request, and runtime enable/disable controls
 for user customization.
 
 CORE ABILITY CATEGORIES
@@ -87,11 +87,11 @@ Leverage todoist-python SDK if integrating with Todoist, or implement custom tas
 
 Implement recurring tasks with flexible schedules, task reminders with customizable timing, task search and filtering, productivity metrics and statistics, and task sharing for collaborative scenarios. Support task import/export in common formats like CSV or JSON.
 
-10. Quick Capture Ability ***SKIP THIS*** 
+10. Quick Capture Ability ***SKIP THIS***
 Provide a fast, low-friction way to capture information without categorization
- overhead. Use bruno-memory with automatic tagging based on content analysis. 
+ overhead. Use bruno-memory with automatic tagging based on content analysis.
  Support voice note transcription using Whisper integration, image capture
- with OCR using pytesseract or cloud OCR services, link saving with 
+ with OCR using pytesseract or cloud OCR services, link saving with
  metadata extraction using newspaper3k or beautifulsoup4, and automatic categorization suggestions.
 
 Implement capture history with timeline view, bulk processing of captures into organized notes/tasks, capture search across all types, and integration with other abilities to convert captures into actions.
@@ -215,22 +215,22 @@ Implement workflow templates for common scenarios, workflow scheduling for perio
 
 INFRASTRUCTURE COMPONENTS
 33. Ability Lifecycle Manager
-Implement initialization and teardown hooks for abilities that need setup or cleanup. 
-Handle resource allocation and release, manage ability state across invocations, 
+Implement initialization and teardown hooks for abilities that need setup or cleanup.
+Handle resource allocation and release, manage ability state across invocations,
 and coordinate shared resources between abilities.
 
-Support lazy loading of abilities to minimize startup time and memory usage. 
-Implement graceful degradation when ability dependencies are unavailable. 
+Support lazy loading of abilities to minimize startup time and memory usage.
+Implement graceful degradation when ability dependencies are unavailable.
 
 Provide health checks for ability readiness.
 
 34. Error Handling Framework
-Create a comprehensive error handling system with ability-specific error types, 
+Create a comprehensive error handling system with ability-specific error types,
 user-friendly error messages, error recovery suggestions, and fallback behavior definitions.
 
 Implement error logging with context preservation, error rate monitoring for reliability tracking, error notification for critical failures, and error analytics for continuous improvement. Support custom error handlers per ability.
 
-35. Permission and Security System 
+35. Permission and Security System
 Build a permission system for sensitive abilities. Support user authorization flows, permission persistence across sessions, permission revocation mechanisms, and audit logging for security-critical operations.
 
 Implement sandboxing for risky operations, input sanitization for all user inputs, rate limiting for abuse prevention, and secret management for API keys and credentials using environment variables or secure vaults.
@@ -377,14 +377,14 @@ Testing, documentation, examples, PyPI publishing
 
 SUCCESS CRITERIA
 The bruno-abilities package is successful when users can install it
- and immediately have working abilities, easily discover what abilities 
+ and immediately have working abilities, easily discover what abilities
  are available, invoke abilities through natural conversation,
- extend Bruno with custom abilities following clear patterns, 
+ extend Bruno with custom abilities following clear patterns,
  and rely on robust error handling and helpful feedback.
 
 The package should integrate seamlessly with bruno-core, bruno-llm, and bruno-memory, leverage well-tested external libraries rather than reinventing functionality, maintain high code quality with comprehensive tests, and provide excellent documentation for both users and developers.
 
-Performance should be responsive with abilities completing in reasonable time, 
+Performance should be responsive with abilities completing in reasonable time,
 scalable with efficient resource usage, and reliable with graceful degradation on failures.
 
 This overview provides the complete blueprint for building bruno-abilities as a production-grade, extensible ability system that transforms Bruno into a truly capable personal assistant.

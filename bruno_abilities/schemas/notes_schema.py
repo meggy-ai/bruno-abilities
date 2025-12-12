@@ -49,14 +49,10 @@ class Note(BaseModel):
 
     # Versioning
     current_version: int = Field(default=1, description="Current version number")
-    versions: list[NoteVersion] = Field(
-        default_factory=list, description="Version history"
-    )
+    versions: list[NoteVersion] = Field(default_factory=list, description="Version history")
 
     # Linking
-    linked_notes: list[str] = Field(
-        default_factory=list, description="IDs of linked notes"
-    )
+    linked_notes: list[str] = Field(default_factory=list, description="IDs of linked notes")
 
     # Templates
     template_id: str | None = Field(default=None, description="Template used")

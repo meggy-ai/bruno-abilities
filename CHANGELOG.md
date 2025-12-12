@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Complete ability implementations:
+  - **TimerAbility**: Countdown timers with async callbacks
+  - **AlarmAbility**: Scheduled alarms with audio playback
+  - **ReminderAbility**: Text-based reminders with persistence
+  - **NotesAbility**: CRUD operations on notes with search
+  - **TodoAbility**: Task management with priorities and status
+  - **MusicAbility**: Local music playback control
 - Base ability framework with abstract base class
 - Rich metadata system for ability description
 - Parameter validation framework with Pydantic models
@@ -15,7 +22,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Lifecycle management for abilities
 - Decorators for retry, timeout, and rate limiting
 - Parameter extraction utilities for natural language
-- Comprehensive test suite for foundation layer
+- StateManager for ability state persistence
+- GitHub Actions workflows (test, lint, publish)
+- Pre-commit hooks configuration
+- Dependabot for automated dependency updates
+- MANIFEST.in for package data
+- Release automation script
+- Comprehensive test suite (164 tests, 67% coverage)
 
 ## [0.1.0] - 2025-12-12
 

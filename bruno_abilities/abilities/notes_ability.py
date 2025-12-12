@@ -52,7 +52,7 @@ class NotesAbility(BaseAbility):
         self._templates["meeting"] = """# Meeting Notes - {title}
 
 **Date**: {date}
-**Attendees**: 
+**Attendees**:
 
 ## Agenda
 
@@ -61,7 +61,7 @@ class NotesAbility(BaseAbility):
 
 
 ## Action Items
-- [ ] 
+- [ ]
 
 ## Next Steps
 
@@ -70,7 +70,7 @@ class NotesAbility(BaseAbility):
         self._templates["daily"] = """# Daily Note - {date}
 
 ## Tasks
-- [ ] 
+- [ ]
 
 ## Notes
 
@@ -216,9 +216,7 @@ class NotesAbility(BaseAbility):
             ],
         )
 
-    async def _execute(
-        self, parameters: dict[str, Any], context: AbilityContext
-    ) -> AbilityResult:
+    async def _execute(self, parameters: dict[str, Any], context: AbilityContext) -> AbilityResult:
         """Execute notes action."""
         action = parameters.get("action", "").lower()
 
@@ -272,9 +270,7 @@ class NotesAbility(BaseAbility):
 
         if not content:
             # Use template with placeholders
-            content = template_content.format(
-                title=title, date=now.strftime("%Y-%m-%d")
-            )
+            content = template_content.format(title=title, date=now.strftime("%Y-%m-%d"))
 
         # Parse tags
         tags = []
