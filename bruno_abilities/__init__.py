@@ -10,6 +10,8 @@ __author__ = "Meggy AI"
 
 from bruno_abilities.base.ability_base import BaseAbility
 from bruno_abilities.base.metadata import AbilityMetadata, ParameterMetadata
+from bruno_abilities.infrastructure import StateManager, StateScope
+from bruno_abilities.registry.lifecycle import LifecycleManager, LifecycleState
 from bruno_abilities.registry.registry import AbilityRegistry
 
 __all__ = [
@@ -17,4 +19,8 @@ __all__ = [
     "AbilityMetadata",
     "ParameterMetadata",
     "AbilityRegistry",
+    "LifecycleManager",
+    "LifecycleState",
+    "StateManager",
+    "StateScope",
 ]
