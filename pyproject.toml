@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bruno-abilities"
-version = "0.1.0"
+version = "1.0.0"
 description = "Action execution layer for Bruno Personal Assistant"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -75,7 +75,7 @@ where = ["."]
 include = ["bruno_abilities*"]
 
 [tool.pytest.ini_options]
-minversion = "7.0"
+minversion = "1.0.0"
 addopts = "-ra -q --strict-markers --cov=bruno_abilities --cov-report=term-missing --cov-report=html"
 testpaths = ["tests"]
 asyncio_mode = "auto"
@@ -117,7 +117,7 @@ ensure_newline_before_comments = true
 
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "1.0.0"
 
 [tool.ruff.lint]
 select = [
@@ -135,6 +135,7 @@ ignore = [
     "C901",  # too complex
     "UP007", # Use X | Y for type annotations (keep Optional for Python 3.10+ compatibility)
     "UP038", # Use X | Y in isinstance (not supported in Python 3.10)
+    "UP045", # Use X | None instead of Optional[X] (keep Optional for Python 3.10+ compatibility)
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -143,7 +144,7 @@ ignore = [
 "bruno_abilities/base/ability_base.py" = ["B027"]  # Empty hooks for subclass override
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "1.0.0"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
