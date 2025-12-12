@@ -1,7 +1,8 @@
 """Common test fixtures and configuration."""
 
-import pytest
 import asyncio
+
+import pytest
 
 
 @pytest.fixture
