@@ -5,10 +5,8 @@ This ability allows users to create and manage notes with Markdown formatting,
 tagging, categorization, search, versioning, templates, and organization.
 """
 
-import asyncio
-import re
 from datetime import datetime
-from typing import Any, Optional
+from typing import Any
 from uuid import uuid4
 
 import pytz
@@ -369,7 +367,6 @@ class NotesAbility(BaseAbility):
 
         # Update content
         if "content" in parameters:
-            old_content = note.content
             note.content = parameters["content"]
             changes.append("content")
 

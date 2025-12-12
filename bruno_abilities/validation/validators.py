@@ -97,7 +97,7 @@ def validate_integer(
     try:
         int_value = int(value)
     except (ValueError, TypeError):
-        raise ValidationError(f"Cannot convert to integer: {value}")
+        raise ValidationError(f"Cannot convert to integer: {value}") from None
 
     if min_value is not None and int_value < min_value:
         raise ValidationError(f"Value must be at least {min_value}, got {int_value}")
@@ -130,7 +130,7 @@ def validate_float(
     try:
         float_value = float(value)
     except (ValueError, TypeError):
-        raise ValidationError(f"Cannot convert to float: {value}")
+        raise ValidationError(f"Cannot convert to float: {value}") from None
 
     if min_value is not None and float_value < min_value:
         raise ValidationError(f"Value must be at least {min_value}, got {float_value}")
@@ -191,7 +191,7 @@ def validate_datetime(value: Any, allow_past: bool = True, allow_future: bool = 
         try:
             dt = datetime.fromisoformat(value)
         except ValueError:
-            raise ValidationError(f"Invalid datetime format: {value}. Use ISO format.")
+            raise ValidationError(f"Invalid datetime format: {value}. Use ISO format.") from None
     else:
         raise ValidationError(f"Cannot convert to datetime: {value}")
 
@@ -290,7 +290,7 @@ def validate_url(value: Any, allowed_schemes: list | None = None) -> str:
     try:
         parsed = urlparse(value)
     except Exception as e:
-        raise ValidationError(f"Invalid URL: {value} ({str(e)})")
+        raise ValidationError(f"Invalid URL: {value} ({str(e)})") from e
 
     if not parsed.scheme or not parsed.netloc:
         raise ValidationError(f"Invalid URL format: {value}")

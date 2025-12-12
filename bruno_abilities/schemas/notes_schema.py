@@ -6,7 +6,6 @@ including versioning and metadata.
 """
 
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -20,7 +19,7 @@ class NoteVersion(BaseModel):
     content: str = Field(..., description="Note content at this version")
     created_at: datetime = Field(..., description="When this version was created")
     created_by: str = Field(..., description="User who created this version")
-    change_summary: Optional[str] = Field(default=None, description="Summary of changes")
+    change_summary: str | None = Field(default=None, description="Summary of changes")
 
 
 class Note(BaseModel):
@@ -39,9 +38,9 @@ class Note(BaseModel):
     user_id: str = Field(..., description="User who owns the note")
 
     # Organization
-    category: Optional[str] = Field(default=None, description="Note category")
+    category: str | None = Field(default=None, description="Note category")
     tags: list[str] = Field(default_factory=list, description="Note tags")
-    folder: Optional[str] = Field(default=None, description="Folder/notebook path")
+    folder: str | None = Field(default=None, description="Folder/notebook path")
 
     # Metadata
     created_at: datetime = Field(..., description="Creation timestamp")
@@ -60,7 +59,7 @@ class Note(BaseModel):
     )
 
     # Templates
-    template_id: Optional[str] = Field(default=None, description="Template used")
+    template_id: str | None = Field(default=None, description="Template used")
 
     # Attachments (references only)
     attachments: list[str] = Field(

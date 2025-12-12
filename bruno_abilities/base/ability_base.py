@@ -238,7 +238,7 @@ class BaseAbility(ABC):
                     except (ValueError, TypeError):
                         raise TypeError(
                             f"Parameter '{param_name}' must be of type {param.type.__name__}"
-                        )
+                        ) from None
 
                 validated[param_name] = value
             elif param.default is not None:

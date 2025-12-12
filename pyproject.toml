@@ -119,6 +119,8 @@ ensure_newline_before_comments = true
 [tool.ruff]
 line-length = 100
 target-version = "py310"
+
+[tool.ruff.lint]
 select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
@@ -134,8 +136,11 @@ ignore = [
     "C901",  # too complex
 ]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
+"bruno_abilities/abilities/notes_ability.py" = ["W291"]  # Intentional whitespace in templates
+"bruno_abilities/base/ability_base.py" = ["B027"]  # Empty hooks for subclass override
+"bruno_abilities/base/metadata.py" = ["UP045"]  # X | None breaks with Pydantic Fields
 
 [tool.mypy]
 python_version = "3.10"

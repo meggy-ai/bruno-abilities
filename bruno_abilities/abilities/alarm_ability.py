@@ -391,7 +391,7 @@ class AlarmAbility(BaseAbility):
             parsed = date_parser.parse(time_str, fuzzy=True)
             return parsed
         except (ValueError, TypeError):
-            raise ValueError(f"Could not parse time: {time_str}")
+            raise ValueError(f"Could not parse time: {time_str}") from None
 
     async def _monitor_alarms(self) -> None:
         """Monitor alarms and trigger them at the right time."""
