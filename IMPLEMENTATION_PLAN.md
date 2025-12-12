@@ -288,8 +288,9 @@ Bruno-abilities is the action execution layer that transforms Bruno from a conve
 ---
 
 ## PHASE 5: INFRASTRUCTURE COMPONENTS (Weeks 6-7)
-**Status**: � In Progress  
+**Status**: ✅ Completed (Simplified)  
 **Estimated Duration**: 2 weeks
+**Actual Implementation**: Minimal infrastructure - StateManager only
 
 ### Task 5.1: Ability Lifecycle Manager
 **Status**: 🟢 Completed  
@@ -315,11 +316,13 @@ Bruno-abilities is the action execution layer that transforms Bruno from a conve
 ---
 
 ### Task 5.2: Error Handling Framework
-**Status**: 🔴 Not Started  
+**Status**: ⏭️ Skipped  
 **Priority**: Critical  
 **Dependencies**: Task 5.1
 
-#### Subtasks:
+**Reason for skipping**: BaseAbility already provides adequate error handling with AbilityResult. A complex error framework with analytics, monitoring, and custom handlers is premature for a personal assistant with 6 abilities. Standard Python exceptions and logging are sufficient.
+
+#### Subtasks (Deferred):
 - [ ] 5.2.1 Create ability-specific error type hierarchy
 - [ ] 5.2.2 Implement user-friendly error message generation
 - [ ] 5.2.3 Add error recovery suggestions
@@ -330,20 +333,18 @@ Bruno-abilities is the action execution layer that transforms Bruno from a conve
 - [ ] 5.2.8 Implement error analytics
 - [ ] 5.2.9 Support custom error handlers per ability
 
-**Deliverables**:
-- `bruno_abilities/infrastructure/error_handling.py`
-- `bruno_abilities/infrastructure/error_types.py`
-- Error handling tests
-- Error handling documentation
+**Deliverables**: None - Using built-in error handling
 
 ---
 
 ### Task 5.3: Permission and Security System
-**Status**: 🔴 Not Started  
+**Status**: ⏭️ Skipped  
 **Priority**: Critical  
 **Dependencies**: Task 5.1
 
-#### Subtasks:
+**Reason for skipping**: This is a **personal** assistant for a single user running locally. Permission systems, authorization flows, and audit logging are designed for multi-user or public-facing systems. For local use, standard OS-level security is sufficient. Input sanitization can be added per-ability if needed.
+
+#### Subtasks (Not Applicable):
 - [ ] 5.3.1 Design permission model for sensitive abilities
 - [ ] 5.3.2 Implement user authorization flows
 - [ ] 5.3.3 Add permission persistence across sessions
@@ -353,20 +354,18 @@ Bruno-abilities is the action execution layer that transforms Bruno from a conve
 - [ ] 5.3.7 Create rate limiting for abuse prevention
 - [ ] 5.3.8 Implement secret management (env vars, secure vaults)
 
-**Deliverables**:
-- `bruno_abilities/infrastructure/security.py`
-- `bruno_abilities/infrastructure/permissions.py`
-- Security tests
-- Security documentation
+**Deliverables**: None - Single-user local application
 
 ---
 
 ### Task 5.4: Progress Reporting System
-**Status**: 🔴 Not Started  
+**Status**: ⏭️ Skipped  
 **Priority**: High  
 **Dependencies**: Task 5.1
 
-#### Subtasks:
+**Reason for skipping**: Current abilities (timer, alarm, notes, reminders, music) are instant or simple background operations. Complex progress tracking with callbacks, persistence, and aggregation is designed for long-running operations we don't have yet. Can add later if needed.
+
+#### Subtasks (Deferred):
 - [ ] 5.4.1 Create progress reporting interface
 - [ ] 5.4.2 Implement percentage-based progress tracking
 - [ ] 5.4.3 Add stage-based progress descriptions
@@ -377,19 +376,18 @@ Bruno-abilities is the action execution layer that transforms Bruno from a conve
 - [ ] 5.4.8 Implement progress aggregation for multi-step workflows
 - [ ] 5.4.9 Add progress callbacks for real-time monitoring
 
-**Deliverables**:
-- `bruno_abilities/infrastructure/progress.py`
-- Progress reporting tests
-- Progress reporting documentation
+**Deliverables**: None - Not needed yet
 
 ---
 
 ### Task 5.5: Configuration Management
-**Status**: 🔴 Not Started  
+**Status**: ⏭️ Skipped  
 **Priority**: High  
 **Dependencies**: Task 5.1
 
-#### Subtasks:
+**Reason for skipping**: StateManager already provides per-ability persistent configuration via ABILITY scope. Environment variables work for system-level config. Complex config versioning, migrations, and import/export are premature for current needs.
+
+#### Subtasks (Redundant with StateManager):
 - [ ] 5.5.1 Design configuration schema
 - [ ] 5.5.2 Implement per-ability settings
 - [ ] 5.5.3 Add user preferences per ability
@@ -400,20 +398,18 @@ Bruno-abilities is the action execution layer that transforms Bruno from a conve
 - [ ] 5.5.8 Implement configuration import/export
 - [ ] 5.5.9 Add configuration defaults with override hierarchy
 
-**Deliverables**:
-- `bruno_abilities/infrastructure/config.py`
-- `bruno_abilities/schemas/config_schema.py`
-- Configuration tests
-- Configuration documentation
+**Deliverables**: None - Using StateManager + environment variables
 
 ---
 
 ### Task 5.6: Testing Infrastructure
-**Status**: 🔴 Not Started  
+**Status**: ⏭️ Skipped  
 **Priority**: Critical  
 **Dependencies**: Task 5.1
 
-#### Subtasks:
+**Reason for skipping**: pytest's built-in tools (unittest.mock, pytest fixtures) are sufficient for current needs. 164 tests passing with 67% coverage demonstrates adequate testing without additional infrastructure. Property-based testing and performance benchmarking are premature optimizations.
+
+#### Subtasks (Not Needed Yet):
 - [ ] 5.6.1 Create mock implementations of external services
 - [ ] 5.6.2 Build fixture data for common scenarios
 - [ ] 5.6.3 Implement test helpers for ability invocation
@@ -422,211 +418,202 @@ Bruno-abilities is the action execution layer that transforms Bruno from a conve
 - [ ] 5.6.6 Implement contract tests for interface compliance
 - [ ] 5.6.7 Add property-based tests for robust validation
 
-**Deliverables**:
-- `bruno_abilities/testing/mocks.py`
-- `bruno_abilities/testing/fixtures.py`
-- `bruno_abilities/testing/helpers.py`
-- `bruno_abilities/testing/benchmarks.py`
-- Testing infrastructure documentation
+**Deliverables**: None - Using pytest built-in tools
 
 ---
 
 ## PHASE 6: INTEGRATION LAYER (Week 8)
-**Status**: 🔴 Not Started  
+**Status**: ⏭️ Skipped  
 **Estimated Duration**: 1 week
+**Reason for skipping**: bruno-core, bruno-llm, and bruno-memory already provide complete integration interfaces. No additional integration layer needed - abilities can use these packages directly.
 
 ### Task 6.1: LLM Integration Layer
-**Status**: 🔴 Not Started  
+**Status**: ⏭️ Skipped  
 **Priority**: Critical  
 **Dependencies**: Phase 5 Complete
 
-#### Subtasks:
-- [ ] 6.1.1 Create adapters for bruno-llm providers
-- [ ] 6.1.2 Implement text generation for dynamic responses
-- [ ] 6.1.3 Add embedding generation for semantic operations
-- [ ] 6.1.4 Create function calling integration for parameter extraction
-- [ ] 6.1.5 Implement streaming response handling
-- [ ] 6.1.6 Add prompt templates for common ability patterns
-- [ ] 6.1.7 Create response parsing utilities
-- [ ] 6.1.8 Implement token usage tracking per ability
-- [ ] 6.1.9 Add cost optimization strategies
+**Reason for skipping**: bruno-llm already provides `LLMFactory` and `EmbeddingFactory` with complete interfaces. Abilities can use these directly without an integration wrapper. Prompt templates, token tracking, and cost optimization are either built-in or premature.
 
-**Deliverables**:
-- `bruno_abilities/integrations/llm_integration.py`
-- `bruno_abilities/integrations/prompt_templates.py`
-- LLM integration tests
-- LLM integration documentation
+#### Subtasks (Not Needed):
+- [ ] 6.1.1 Create adapters for bruno-llm providers (bruno-llm already provides this)
+- [ ] 6.1.2 Implement text generation for dynamic responses (use `llm.generate()` directly)
+- [ ] 6.1.3 Add embedding generation for semantic operations (use `EmbeddingFactory` directly)
+- [ ] 6.1.4 Create function calling integration for parameter extraction (not needed yet)
+- [ ] 6.1.5 Implement streaming response handling (bruno-llm has `llm.stream()`)
+- [ ] 6.1.6 Add prompt templates for common ability patterns (abilities define their own)
+- [ ] 6.1.7 Create response parsing utilities (not needed)
+- [ ] 6.1.8 Implement token usage tracking per ability (bruno-llm has cost tracking)
+- [ ] 6.1.9 Add cost optimization strategies (premature)
+
+**Deliverables**: None - Use bruno-llm directly
 
 ---
 
 ### Task 6.2: Memory Integration Layer
-**Status**: 🔴 Not Started  
+**Status**: ⏭️ Skipped  
 **Priority**: Critical  
 **Dependencies**: Phase 5 Complete
 
-#### Subtasks:
-- [ ] 6.2.1 Create utilities for bruno-memory interaction
-- [ ] 6.2.2 Implement ability-specific memory namespaces
-- [ ] 6.2.3 Add temporal memory queries for context
-- [ ] 6.2.4 Create semantic memory search for relevant information
-- [ ] 6.2.5 Implement memory cleanup for ability data
-- [ ] 6.2.6 Optimize memory access patterns for abilities
-- [ ] 6.2.7 Create memory migration tools for schema changes
-- [ ] 6.2.8 Add memory analytics for usage insights
+**Reason for skipping**: bruno-memory already provides `MemoryFactory`, `MemoryRetriever`, and complete memory management including semantic search, temporal queries, and analytics. No wrapper needed - abilities can use MemoryFactory directly.
 
-**Deliverables**:
-- `bruno_abilities/integrations/memory_integration.py`
-- Memory integration tests
-- Memory integration documentation
+#### Subtasks (Not Needed):
+- [ ] 6.2.1 Create utilities for bruno-memory interaction (MemoryFactory is the utility)
+- [ ] 6.2.2 Implement ability-specific memory namespaces (use user_id in memory entries)
+- [ ] 6.2.3 Add temporal memory queries for context (MemoryRetriever already has this)
+- [ ] 6.2.4 Create semantic memory search for relevant information (already built-in)
+- [ ] 6.2.5 Implement memory cleanup for ability data (bruno-memory has TTL and expiration)
+- [ ] 6.2.6 Optimize memory access patterns for abilities (already optimized)
+- [ ] 6.2.7 Create memory migration tools for schema changes (MigrationManager exists)
+- [ ] 6.2.8 Add memory analytics for usage insights (analytics already built-in)
+
+**Deliverables**: None - Use bruno-memory directly
 
 ---
 
 ### Task 6.3: Event System Integration
+**Status**: ⏭️ Skipped  
+**Priority**: High  
+**Dependencies**: Phase 5 Complete
+
+**Reason for skipping**: bruno-core already provides complete `EventBus` with pub/sub, event handlers (sync/async), ability lifecycle events, filtering, and priority. Abilities can import EventBus directly. Event persistence and replay are premature for personal assistant.
+
+#### Subtasks (Not Needed):
+- [ ] 6.3.1 Integrate with bruno-core's event bus (EventBus is ready to use)
+- [ ] 6.3.2 Implement ability lifecycle events (already exists in bruno-core)
+- [ ] 6.3.3 Add inter-ability communication for workflows (call via registry directly)
+- [ ] 6.3.4 Create system-wide events for monitoring (EventType enum already has these)
+- [ ] 6.3.5 Support custom ability-specific events (EventBus supports custom events)
+- [ ] 6.3.6 Implement event filtering and routing (EventHandler.should_handle() exists)
+- [ ] 6.3.7 Add event persistence for audit trails (premature for personal assistant)
+- [ ] 6.3.8 Create event replay for debugging and testing (not needed yet)
+
+**Deliverables**: None - Use bruno-core EventBus directly
+
+---
+
+## PHASE 7: PACKAGING & DISTRIBUTION (Week 9)
+**Status**: � Ready to Start  
+**Estimated Duration**: 1 week
+**Note**: pyproject.toml already exists with good foundation. Need to add GitHub workflows, docs, and polish for PyPI publication.
+
+### Task 7.1: Package Configuration and PyPI Setup
+**Status**: 🟢 Partially Complete  
+**Priority**: High  
+**Dependencies**: Phase 5 Complete
+**Current State**: pyproject.toml exists with entry points, dependencies, and metadata. Basic CI/CD workflows created.
+
+#### Subtasks:
+- [x] 7.1.1 Create pyproject.toml with metadata (DONE)
+- [x] 7.1.2 Add entry points for ability discovery (DONE)
+- [x] 7.1.3 Configure dependencies (DONE)
+- [x] 7.1.4 Create GitHub Actions workflows for testing and linting (DONE)
+- [ ] 7.1.5 Create GitHub Actions workflow for PyPI publishing
+- [ ] 7.1.6 Add MANIFEST.in for package data
+- [ ] 7.1.7 Create release script for version bumping
+- [ ] 7.1.8 Add PyPI badges to README
+- [ ] 7.1.9 Test package build and installation locally
+
+**Deliverables**:
+- `.github/workflows/test.yml` (DONE)
+- `.github/workflows/lint.yml` (DONE)
+- `.github/workflows/publish.yml`
+- `MANIFEST.in`
+- `scripts/release.py`
+- Updated README.md with installation instructions
+
+---
+
+### Task 7.2: Documentation
 **Status**: 🔴 Not Started  
 **Priority**: High  
 **Dependencies**: Phase 5 Complete
 
 #### Subtasks:
-- [ ] 6.3.1 Integrate with bruno-core's event bus
-- [ ] 6.3.2 Implement ability lifecycle events (started, completed, failed)
-- [ ] 6.3.3 Add inter-ability communication for workflows
-- [ ] 6.3.4 Create system-wide events for monitoring
-- [ ] 6.3.5 Support custom ability-specific events
-- [ ] 6.3.6 Implement event filtering and routing
-- [ ] 6.3.7 Add event persistence for audit trails
-- [ ] 6.3.8 Create event replay for debugging and testing
+- [ ] 7.2.1 Enhance README.md with comprehensive examples
+- [ ] 7.2.2 Add docstrings to all public APIs
+- [ ] 7.2.3 Create CONTRIBUTING.md for contributors
+- [ ] 7.2.4 Set up basic Sphinx documentation
+- [ ] 7.2.5 Create API reference from docstrings
+- [ ] 7.2.6 Add usage examples for each ability
+- [ ] 7.2.7 Create integration examples (LLM, Memory, Events)
+- [ ] 7.2.8 Set up GitHub Pages for docs
 
 **Deliverables**:
-- `bruno_abilities/integrations/event_integration.py`
-- Event system tests
-- Event system documentation
-
----
-
-## PHASE 7: PACKAGING & DISTRIBUTION (Week 9)
-**Status**: 🔴 Not Started  
-**Estimated Duration**: 1 week
-
-### Task 7.1: Ability Packaging and Distribution
-**Status**: 🔴 Not Started  
-**Priority**: High  
-**Dependencies**: Phase 6 Complete
-
-#### Subtasks:
-- [ ] 7.1.1 Create metadata specification format
-- [ ] 7.1.2 Implement dependency declaration conventions
-- [ ] 7.1.3 Add versioning guidelines (semver)
-- [ ] 7.1.4 Create publishing workflows to PyPI
-- [ ] 7.1.5 Implement ability compatibility checking with bruno versions
-- [ ] 7.1.6 Add ability update mechanisms with migration support
-- [ ] 7.1.7 Create setup.py and pyproject.toml
-- [ ] 7.1.8 Implement entry points for ability discovery
-
-**Deliverables**:
-- `setup.py`
-- `pyproject.toml`
-- `MANIFEST.in`
-- Package configuration documentation
-
----
-
-### Task 7.2: Documentation System
-**Status**: 🔴 Not Started  
-**Priority**: High  
-**Dependencies**: Phase 6 Complete
-
-#### Subtasks:
-- [ ] 7.2.1 Set up documentation framework (Sphinx/MkDocs)
-- [ ] 7.2.2 Generate user-facing documentation
-- [ ] 7.2.3 Create developer documentation for creating abilities
-- [ ] 7.2.4 Build API reference documentation
-- [ ] 7.2.5 Create troubleshooting guides
-- [ ] 7.2.6 Add quick start guide
-- [ ] 7.2.7 Create example gallery
-- [ ] 7.2.8 Implement automated docs generation from metadata
-
-**Deliverables**:
-- `docs/` directory structure
-- `docs/user_guide.md`
-- `docs/developer_guide.md`
-- `docs/api_reference.md`
-- `docs/troubleshooting.md`
-- `README.md` enhancement
-- Documentation site configuration
+- Enhanced `README.md`
+- `CONTRIBUTING.md`
+- `docs/` directory with Sphinx setup
+- `docs/conf.py`
+- API documentation
+- Example gallery
 
 ---
 
 ## PHASE 8: QUALITY ASSURANCE (Week 10)
-**Status**: 🔴 Not Started  
+**Status**: � Partially Complete  
 **Estimated Duration**: 1 week
+**Current State**: 164 tests passing, 67% coverage, ruff configured
 
-### Task 8.1: Validation Framework
-**Status**: 🔴 Not Started  
-**Priority**: Critical  
-**Dependencies**: Phase 7 Complete
-
-#### Subtasks:
-- [ ] 8.1.1 Enhance ability input validation
-- [ ] 8.1.2 Add comprehensive type checking
-- [ ] 8.1.3 Implement range validation
-- [ ] 8.1.4 Create format validation
-- [ ] 8.1.5 Add business rule validation
-- [ ] 8.1.6 Implement validation error aggregation
-- [ ] 8.1.7 Create custom validation rules per ability
-- [ ] 8.1.8 Add validation caching for repeated checks
-
-**Deliverables**:
-- Enhanced validation framework
-- Validation test suite
-- Validation documentation
-
----
-
-### Task 8.2: Testing Automation
-**Status**: 🔴 Not Started  
-**Priority**: Critical  
-**Dependencies**: Phase 7 Complete
-
-#### Subtasks:
-- [ ] 8.2.1 Create unit tests for all abilities
-- [ ] 8.2.2 Implement integration tests with external services
-- [ ] 8.2.3 Add end-to-end tests simulating user workflows
-- [ ] 8.2.4 Create performance tests for scalability
-- [ ] 8.2.5 Set up continuous integration with GitHub Actions
-- [ ] 8.2.6 Implement test coverage tracking (target 80%+)
-- [ ] 8.2.7 Add regression test suites
-- [ ] 8.2.8 Create test documentation
-
-**Deliverables**:
-- Comprehensive test suite
-- `.github/workflows/test.yml`
-- `pytest.ini` configuration
-- Test coverage reports
-- Test documentation
-
----
-
-### Task 8.3: Code Quality Tools
-**Status**: 🔴 Not Started  
+### Task 8.1: Improve Test Coverage
+**Status**: 🟡 Ready to Start  
 **Priority**: High  
 **Dependencies**: Phase 7 Complete
+**Current Coverage**: 67% - Target 80%+
 
 #### Subtasks:
-- [ ] 8.3.1 Set up ruff linter
-- [ ] 8.3.2 Configure black formatter
-- [ ] 8.3.3 Add isort for import sorting
-- [ ] 8.3.4 Set up mypy type checker (strict mode)
-- [ ] 8.3.5 Integrate bandit security scanner
-- [ ] 8.3.6 Add safety for dependency vulnerability scanning
-- [ ] 8.3.7 Create pre-commit hooks
-- [ ] 8.3.8 Set up code review automation
+- [ ] 8.1.1 Add tests for StateManager persistence methods (currently 24% coverage)
+- [ ] 8.1.2 Add tests for LifecycleManager (currently 18% coverage)
+- [ ] 8.1.3 Add edge case tests for all abilities
+- [ ] 8.1.4 Add integration tests with bruno-core, bruno-llm, bruno-memory
+- [ ] 8.1.5 Add error handling tests
+- [ ] 8.1.6 Test ability parameter validation
 
 **Deliverables**:
+- Improved test coverage (80%+ target)
+- Integration test suite
+- Coverage report
+
+---
+
+### Task 8.2: CI/CD Setup
+**Status**: � Partially Complete  
+**Priority**: High  
+**Dependencies**: Phase 7 Complete
+**Current State**: Basic GitHub Actions workflows created with multi-OS and multi-Python support
+
+#### Subtasks:
+- [x] 8.2.1 Create GitHub Actions workflow for testing (DONE)
+- [x] 8.2.2 Add multi-OS testing (Ubuntu, macOS, Windows) (DONE)
+- [x] 8.2.3 Add multi-Python version testing (3.10, 3.11, 3.12) (DONE)
+- [ ] 8.2.4 Set up coverage reporting to Codecov
+- [ ] 8.2.5 Add automated dependency updates (Dependabot)
+- [ ] 8.2.6 Create pre-commit hooks configuration
+
+**Deliverables**:
+- `.github/workflows/test.yml` (DONE)
+- `.github/workflows/lint.yml` (DONE)
+- `.github/dependabot.yml`
 - `.pre-commit-config.yaml`
-- `ruff.toml`
-- `pyproject.toml` (tool configurations)
-- `mypy.ini`
-- Code quality documentation
+
+---
+
+### Task 8.3: Code Quality Polish
+**Status**: 🟢 Partially Complete  
+**Priority**: Medium  
+**Dependencies**: Phase 7 Complete
+**Current State**: ruff configured and passing
+
+#### Subtasks:
+- [x] 8.3.1 Set up ruff linter (DONE)
+- [ ] 8.3.2 Add mypy type checking
+- [ ] 8.3.3 Configure ruff formatter
+- [ ] 8.3.4 Add security scanning (bandit)
+- [ ] 8.3.5 Create pre-commit hooks
+- [ ] 8.3.6 Add code quality badges to README
+
+**Deliverables**:
+- `mypy.ini` or pyproject.toml config
+- `.pre-commit-config.yaml`
+- Updated README with badges
 
 ---
 
